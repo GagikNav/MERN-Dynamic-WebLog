@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react';
+import createDOMPurify from 'dompurify';
+const { JSDOM } = require('jsdom');
+
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 function useForm(callBack, validate, article, consent, setConsent) {
   const [initialFormValues, setInitialFormValues] = useState({});
@@ -72,7 +77,7 @@ function useForm(callBack, validate, article, consent, setConsent) {
 
     setValues({
       ...values,
-      [name]: value,
+      [name]: DOMPurify.sanitize(value),
     });
   };
 
