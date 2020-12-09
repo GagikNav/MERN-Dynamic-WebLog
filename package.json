@@ -1,0 +1,44 @@
+{
+  "name": "dynamic-blog",
+  "version": "1.0.0",
+  "description": "Dynamic Blog with bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GagikNav/DynamicBlog.git"
+  },
+  "keywords": [
+    "Blog"
+  ],
+  "author": "Gagik",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bad-words": "^3.0.4",
+    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "dompurify": "^2.2.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.2.3",
+    "express-slow-down": "^1.3.1",
+    "express-validator": "^6.8.0",
+    "jsdom": "^16.4.0",
+    "mongoose": "^5.11.5"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/GagikNav/DynamicBlog/issues"
+  },
+  "homepage": "https://github.com/GagikNav/DynamicBlog#readme",
+  "proxy": "http://localhost:5000"
+}
