@@ -1,15 +1,30 @@
 {
   "name": "mern-weblog",
   "version": "0.1.0",
+  "homepage": "/",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/styles": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
+    "axios": "^0.21.0",
+    "dompurify": "^2.2.3",
+    "draft-js": "^0.11.7",
+    "express": "^4.17.1",
+    "formik": "^2.2.6",
+    "jsdom": "^16.4.0",
+    "markdown-to-jsx": "^7.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-markdown": "^5.0.3",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "uuid": "^8.3.2",
+    "web-vitals": "^0.2.4",
+    "yup": "^0.32.8"
   },
   "scripts": {
     "start": "react-scripts start",
