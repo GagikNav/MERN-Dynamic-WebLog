@@ -51,17 +51,19 @@ const App = () =>
     },
   ];
   return (
-    <Router basename='/'>
-      <Switch>
-        <PostProvider>
-          <Navbar title='Blog' linkList={linkList} />
-          <Route path='/' exact component={Home} />
-          <Route path='/Articles' exact component={Articles} />
-          <Route path='/NewArticle' exact component={NewArticle} />
-          <Route path='/Articles/:id' component={DisplayArticle} />
-        </PostProvider>
-      </Switch>
-    </Router>
+    <React.Fragment>
+      <Router basename='/'>
+        <Switch>
+          <PostProvider>
+            <Navbar title='Making The History Here' linkList={linkList} />
+            <Route path='/' exact component={Home}  />
+            <Route path='/Articles' exact component={Articles} />
+            <Route path='/NewArticle' exact component={NewArticle} />
+            <Route path='/Articles/:id' component={DisplayArticle} />
+          </PostProvider>
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
 export default App;

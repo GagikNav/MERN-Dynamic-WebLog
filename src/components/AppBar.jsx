@@ -1,5 +1,6 @@
 import { React, Fragment, useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Drawer from './Drawer';
 
 // Material Ui Imports
 import {
@@ -17,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // Icons
 import {
   HomeTwoTone,
-  Menu,
   FiberNewTwoTone,
   Subject,
   LocationOn as LocationOnIcon,
@@ -29,6 +29,10 @@ import {
 //
 
 // Functions Section
+const handleClick = () => {
+  console.log('menu Click');
+};
+
 function HideOnScroll({ children }) {
   const trigger = useScrollTrigger();
 
@@ -38,43 +42,55 @@ function HideOnScroll({ children }) {
     </Slide>
   );
 }
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   navBtn: {
     color: 'white',
   },
-});
+  linkContainer: {
+    padding: '0 0 0 50px ',
+    display: 'flex',
+    justifyContent: 'space-around',
+    overflowX: 'auto',
+  },
+}));
 
 //
 // Main Component
 
-const Navbar = ({ history, linkList }) => {
+const Navbar = ({ history, linkList, title }) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   return (
     <Fragment>
       <HideOnScroll>
-        <AppBar position='fixed'>
-          <Toolbar>
-            <IconButton edge='start' color='inherit' aria-label='menu'>
-              <Menu />
+        <AppBar position='fixed' className='appBar'>
+          <Toolbar
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <IconButton
+              onClick={handleClick}
+              edge='start'
+              color='inherit'
+              aria-label='menu'
+            >
+              <Drawer linkList={linkList} />
             </IconButton>
-
-            <Container maxWidth='xs'>
-              {linkList.map(link => {
-                const { text, icon, route } = link;
-                return (
-                  <IconButton
-                    onClick={() => history.push(`${route}`)}
-                    edge='start'
-                    color='inherit'
-                    aria-label={text}
-                  >
-                    {icon}
-                    <Typography variant='button' color='initial'>
-                      {text}
-                    </Typography>
-                  </IconButton>
-                );
-              })}
-            </Container>
+            <Typography
+              style={{
+                fontFamily: 'dancing script',
+              }}
+              component='h4'
+              variant='h4'
+              color='inherit'
+              align='center'
+              noWrap
+            >
+              {title}
+            </Typography>
+            <Typography variant='h3'>{''}</Typography>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

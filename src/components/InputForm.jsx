@@ -41,22 +41,25 @@ const InputForm = withRouter(({ history, article, match }) => {
   // Functions
 
   const redirect = path => {
+    console.log('redirected');
     history.push(path);
+    window.location.reload();
   };
 
   function submit(isEdit) {
+    console.log('submit called');
     //isEdit os from useForm to determine keeping values of the form
-    if (isEdit === true) {
-      console.log(isEdit);
+    if (isEdit) {
       editData(match.params.id);
-      getLastData();
       setShouldGetData(!shouldGetData);
-      redirect('/Articles');
+      getLastData();
     } else {
       sendData();
-      getLastData();
       setShouldGetData(!shouldGetData);
-      redirect('/Articles');
+      setTimeout(() => {
+        console.log('call getLastData!');
+        getLastData();
+      }, 500);
     }
   }
   // Function for Sending Data to database
@@ -65,8 +68,8 @@ const InputForm = withRouter(({ history, article, match }) => {
     try {
       const res = await axios({
         method: 'post',
-        url: 'http://localhost:5000/api/posts',
-        //'https://mern-blog-298121.ew.r.appspot.com/api/posts/',
+        url: 'https://mern-blog-298121.ew.r.appspot.com/api/posts/',
+
         data: JSON.stringify(values),
         headers: { 'Content-Type': 'application/json' },
       });
@@ -78,12 +81,13 @@ const InputForm = withRouter(({ history, article, match }) => {
   };
   // Patch request
   const editData = async id => {
-    const address = `http://localhost:5000/api/posts/${id}`;
-    // `http://mern-blog-298121.ew.r.appspot.com/api/posts/${ id }`;
+    // `http://localhost:5000/api/posts/${id}`;
+
+    const address = `https://mern-blog-298121.ew.r.appspot.com/api/posts/${id}`;
     try {
       const res = await axios({
         method: 'patch',
-        url: address, //`api/posts/${id}`,
+        url: address,
         data: JSON.stringify(values),
         headers: { 'Content-Type': 'application/json' },
       });
@@ -94,17 +98,22 @@ const InputForm = withRouter(({ history, article, match }) => {
     }
   };
 
-  // Getting last saved data
+  // Getting saved data
 
   const getLastData = async () => {
+    console.log('getLastData');
+    let dataRoute = match.params.id ? match.params.id : 'lts';
+    console.log('API route:', dataRoute);
+
     try {
       const res = await axios.get(
-        //'https://mern-blog-298121.ew.r.appspot.com/api/posts/lts',
-        `http://localhost:5000/api/posts/lts`,
+        `https://mern-blog-298121.ew.r.appspot.com/api/posts/${dataRoute}`,
       );
-      let id = res.data[0]._id;
+      console.log('RES object', res);
+
+      redirect(`/Articles/${''}`);
+
       // Redirecting to create weblog
-      redirect(`/Articles/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -113,9 +122,7 @@ const InputForm = withRouter(({ history, article, match }) => {
   let { name, postBody, postTitle } = values;
   //
   //  Styling Css
-  const click = e => {
-    handleSubmit();
-  };
+
   const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
@@ -231,9 +238,7 @@ const InputForm = withRouter(({ history, article, match }) => {
           className={classes.margin}
           variant='contained'
           color='primary'
-          onClick={() => {
-            console.log(postTitle);
-          }}
+          onClick={handleSave}
           startIcon={<SaveIcon />}
         >
           Save
@@ -253,7 +258,7 @@ const InputForm = withRouter(({ history, article, match }) => {
           disableEnforceFocus
           disableAutoFocus
         >
-          <div className={classes.paper} style={{}}>
+          <div className={classes.paper}>
             <Typography
               display='block'
               gutterBottom

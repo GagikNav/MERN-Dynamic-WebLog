@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import DOMPurify from 'dompurify';
-// const { JSDOM } = require('jsdom');
-
-// const window = new JSDOM('').window;
-// const DOMPurify = createDOMPurify(window);
 
 function useForm(
   submit,
@@ -26,7 +22,6 @@ function useForm(
 
   //  defining if edit mode and what to do
   function init() {
-    console.log(article);
     if (article) {
       setValues({
         name: article.name,
@@ -55,11 +50,15 @@ function useForm(
     }
   }
 
+  //
+  
+
   // this will run if user press save and there is no errors
-  useEffect(() => {
+  useEffect( async () => {
     if (Object.keys(errors).length === 0 && isSubmit) {
       console.log('submitted successfully');
-      submit(isEdit);
+      await submit(isEdit);
+      setIsEdit(false);
     } else {
       // need this to called second time for save function
       if (Object.keys(errors).length === 0 && isCalled.current) {
@@ -72,7 +71,7 @@ function useForm(
   //
   useEffect(() => {
     init();
-    setImgIndex(Math.floor(Math.random() * 100));
+    setImgIndex(Math.floor(Math.random() * 1000));
   }, []);
 
   //

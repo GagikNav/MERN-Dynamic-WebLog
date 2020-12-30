@@ -17,7 +17,7 @@ const validate = values => {
   // $less than 50
   if (postTitle.length === 0) {
     errors.postTitle = 'Title is required';
-  } else if (postTitle.length > 0 && postTitle.length < 5) {
+  } else if (postTitle.length > 0 && postTitle.length < 10) {
     errors.postTitle = 'Title should be more than 10 characters';
   } else if (postTitle.length > 50) {
     errors.postTitle = 'Title should be less than 50 characters';
@@ -27,7 +27,7 @@ const validate = values => {
   // $less than 1000
   if (postBody.length === 0) {
     errors.postBody = 'Markdown is required';
-  } else if (postBody.length > 0 && postBody.length < 10) {
+  } else if (postBody.length > 0 && postBody.length < 20) {
     errors.postBody = 'Markdown should be more than 50 characters';
   } else if (postBody.length > 1000) {
     errors.postBody = 'Markdown should be less than 1000 characters';

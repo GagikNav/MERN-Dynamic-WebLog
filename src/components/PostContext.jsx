@@ -1,20 +1,24 @@
 import React, { useContext, useState, useEffect, createContext } from 'react';
 import axios from 'axios';
+import { fPost1, fPost2 } from './FeaturedPosts';
+import { sideBar } from './FooterLinks';
 // import data from './mockData';
 export const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([fPost1, fPost2]);
   const [shouldGetData, setShouldGetData] = useState(true);
+
+  //
 
   const getData = async () => {
     try {
       // console.log('hi from context', typeof data, data);
       const { data } = await axios.get(
-        // 'http://mern-blog-298121.ew.r.appspot.com/api/posts',
-        `http://localhost:5000/api/posts`,
+        'https://mern-blog-298121.ew.r.appspot.com/api/posts',
+        // `http://localhost:5000/api/posts`,
       );
-      setPosts([...data]);
+      setPosts([fPost1, fPost2, ...data]);
     } catch (error) {
       console.error('error', error);
     }
@@ -29,6 +33,7 @@ export const PostProvider = ({ children }) => {
       value={{
         postsData: [posts, setPosts],
         refresh: [shouldGetData, setShouldGetData],
+        sidebar: sideBar,
       }}
     >
       {children}

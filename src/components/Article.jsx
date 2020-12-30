@@ -1,10 +1,9 @@
 import ReactMarkdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
-
+import React from 'react';
 // MUI
 import {
   Typography,
-  Box,
   CardActionArea,
   CardActions,
   CardContent,
@@ -27,7 +26,11 @@ const useStyles = makeStyles({
 const Article = ({ history, article }) => {
   function postDate() {
     const dateOfPost = article.date;
-    if (dateOfPost) return dateOfPost.slice(0, 10).replace(/-/g, '/');
+    if (dateOfPost) {
+      return dateOfPost.slice(0, 10).replace(/-/g, '/');
+    } else {
+      return null;
+    }
   }
 
   const classes = useStyles();
@@ -78,6 +81,7 @@ const Article = ({ history, article }) => {
           color='primary'
           onClick={() => {
             history.push(`/Articles/${article._id}`);
+            window.location.reload();
           }}
         >
           Read More ...
