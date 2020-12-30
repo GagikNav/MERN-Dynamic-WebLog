@@ -21,5 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/src/components/templates
 /server.js
+/src/components/templates/Sidebar.js
+/src/components/templates/Markdown.js
+/src/components/templates/MainFeaturedPost.js
+/src/components/templates/Main.js
+/src/components/templates/Header.js
+/src/components/templates/Footer.js
+/src/components/templates/FeaturedPost.js
+/src/components/templates/Blog.js
