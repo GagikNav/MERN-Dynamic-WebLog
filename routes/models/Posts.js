@@ -13,9 +13,15 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imgIndex: {
+    type: Number,
+    required: true,
+  },
+
   date: {
     type: Date,
     default: Date.now,
   },
 });
 module.exports = Post = mongoose.model('blog', PostSchema);
+

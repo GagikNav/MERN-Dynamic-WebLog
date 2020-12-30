@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const app = express();
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const slowDown = require('express-slow-down');
 const Filter = require('bad-words');
@@ -17,13 +17,13 @@ filter = new Filter();
 
 //  middlewares for limiting requests
 const speedLimiter = slowDown({
-  windowMs: 15 * 60 * 1000,
-  delayAfter: 10,
-  delayMs: 500,
+  windowMs: 1 * 60 * 1000,  // ********************
+  delayAfter: 50,           // ********************
+  delayMs: 500,             // ********************
 });
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50,
+  windowMs: 1 * 60 * 1000,  // ********************
+  max: 1000,                // ********************                      
 });
 
 // Accessing to db models
@@ -55,6 +55,7 @@ router.get('/', limiter, speedLimiter, async (req, res) => {
 router.get('/lts', limiter, speedLimiter, async (req, res) => {
   try {
     const item = await Posts.find().sort('-date').limit(1);
+    
     console.log(req.params);
     res.json(item);
   } catch (err) {
@@ -111,6 +112,7 @@ router.post(
       min: 5,
       max: 5000,
     }),
+    check('imgIndex').not().isEmpty(),
   ],
   limiter,
   speedLimiter,
@@ -120,12 +122,13 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, postTitle, postBody } = req.body;
+    const { name, postTitle, postBody, imgIndex } = req.body;
     try {
       let posts = new Posts({
         name: filter.clean(DOMPurify.sanitize(name)),
         postTitle: filter.clean(DOMPurify.sanitize(postTitle)),
         postBody: filter.clean(DOMPurify.sanitize(postBody)),
+        imgIndex: imgIndex,
       });
       await posts.save();
       return res.status(200).json({ msg: 'post added' });
@@ -160,7 +163,7 @@ router.patch(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { name, postTitle, postBody } = req.body;
+    const { name, postTitle, postBody, imgIndex } = req.body;
     try {
       let updatedItem = await Posts.updateOne(
         { _id: req.params.id },
@@ -169,6 +172,7 @@ router.patch(
             name: filter.clean(DOMPurify.sanitize(name)),
             postTitle: filter.clean(DOMPurify.sanitize(postTitle)),
             postBody: filter.clean(DOMPurify.sanitize(postBody)),
+
           },
         },
       );
