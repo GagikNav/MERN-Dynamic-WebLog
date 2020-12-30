@@ -63,7 +63,7 @@ export default function Home() {
     <React.Fragment>
       <Container
         maxWidth='lg'
-        style={{ minHeight: 'calc(100vh - 120px - 10px)' }}
+        style={{ minHeight: 'calc(100vh - 120px - 5rem)' }}
       >
         <Box mt={20}>
           <CssBaseline />

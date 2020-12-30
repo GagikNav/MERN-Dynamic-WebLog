@@ -10,7 +10,11 @@ const sideBar = {
   archives: [{ title: 'March 2020', url: '#' }],
   //
   social: [
-    { name: 'GitHub', icon: GitHubIcon, linkTo: 'https://github.com/GagikNav' },
+    {
+      name: 'GitHub',
+      icon: GitHubIcon,
+      linkTo: 'https://github.com/GagikNav/MERN-Dynamic-WebLog',
+    },
     {
       name: 'WebSite',
       icon: LanguageIcon,
