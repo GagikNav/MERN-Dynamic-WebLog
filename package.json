@@ -2,10 +2,10 @@
   "name": "dynamic-blog",
   "version": "1.0.0",
   "description": "Dynamic Blog with bootstrap",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -19,7 +19,7 @@
   "author": "Gagik",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^1.2.2",
     "bad-words": "^3.0.4",
     "config": "^3.3.3",
     "cors": "^2.8.5",

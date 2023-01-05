@@ -24,16 +24,16 @@ app.use(cors(corsOptions));
 
 
 app.get('/', (req, res) => {
-    res.status(200).send('This is MERN WEBLOG!').end();
+    res.status(200).send('This is TODO server!').end();
 });
 
 // Define Routes
-app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/todos/', require('./routes/api/todos'));
 
 // Listening to server
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`MERN APP listening on port ${PORT}`);
+    console.log(`APP listening on port ${PORT}`);
     console.log('Press Ctrl+C to quit.');
 });
